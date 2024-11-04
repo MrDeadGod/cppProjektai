@@ -1,24 +1,39 @@
 #include <iostream>
 #include <filesystem>
+#include <fstream>
 
-#define GETFILES(x) for(const auto &entry : fs::directory_iterator(x))
+#define CONFIG_FAILAS "C:\\Users\\Admin\\Desktop\\c++ projects\\filedirr\\config.txt"
 
 namespace fs = std::filesystem;
+using namespace std;
+
+int getFiles(string dir) 
+{
+        for(const auto &entry : fs::directory_iterator(dir)) {
+                cout << "Path: " << entry.path() << endl;
+                cout << "Name: " << entry.path().filename() << endl;
+                if (entry.is_regular_file()) {
+                        cout << "Size: " << std::setprecision(2) << (entry.file_size() / 1024.0 / 1024.0) << " MB" << endl;
+                } else {
+                        cout << "Size: N/A, it may be because it isn't a regular file" << endl;
+                }
+                cout << endl;
+        }
+        return 0;
+}
+
+int readFiles()
+{
+        string myText;
+        ifstream MyFile(CONFIG_FAILAS);
+        while (getline (MyFile, myText)) {
+                getFiles(myText);
+        }
+        return 0;
+}
 
 int main()
 {
-    std::string dir = "C:\\Users\\Admin\\Documents\\";
-    std::cout << "The files of " << dir << " directory are:" << std::endl << std::endl;
-
-    GETFILES(dir) {
-            std::cout << "Path: " << entry.path() << std::endl;
-            std::cout << "Name: " << entry.path().filename() << std::endl;
-            if (entry.is_regular_file()) {
-                    std::cout << "Size: " << std::setprecision(2) << (entry.file_size() / 1024.0 / 1024.0) << " MB" << std::endl;
-            } else {
-                    std::cout << "Size: N/A, it may be because it isn't a regular file" << std::endl;
-            }
-            std::cout << std::endl;
-    }   
+        readFiles();
     return 0;
 }
