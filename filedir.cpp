@@ -37,3 +37,10 @@ int main()
         readFiles();
     return 0;
 }
+
+
+/* Config failo pvz:
+C:\Users\Admin\Desktop\samsung\media
+C:\Users\Admin\Desktop\samsung\pages
+C:\Users\Admin\Desktop\c++ projects\filedirr
+*/
