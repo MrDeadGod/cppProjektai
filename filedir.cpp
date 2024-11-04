@@ -7,7 +7,16 @@
 namespace fs = std::filesystem;
 using namespace std;
 
-int getFiles(string dir) 
+static void get_file();
+static void read_file(); // nežinau ar reikėjo abi padaryt void, bet pažiūrėjus į kodą, abi funkcijos nenaudojo gražinamosios vertės
+
+int main()
+{
+        read_file();
+        return 0;
+}
+
+static void get_file(string dir) 
 {
         for(const auto &entry : fs::directory_iterator(dir)) {
                 cout << "Path: " << entry.path() << endl;
@@ -19,23 +28,15 @@ int getFiles(string dir)
                 }
                 cout << endl;
         }
-        return 0;
 }
 
-int readFiles()
+static void read_file()
 {
         string myText;
         ifstream MyFile(CONFIG_FAILAS);
         while (getline (MyFile, myText)) {
-                getFiles(myText);
+                get_file(myText);
         }
-        return 0;
-}
-
-int main()
-{
-        readFiles();
-    return 0;
 }
 
 
